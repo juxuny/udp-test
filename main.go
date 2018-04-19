@@ -38,12 +38,20 @@ func main() {
 	}()
 	for {
 		var r, dst string
-		fmt.Scanln(&dst, &r)
+		n, e := fmt.Scanf("%s %s", &dst, &r)
+		if e != nil {
+			fmt.Println(e)
+			continue
+		}
+		if n == 0 {
+			continue
+		}
+		//fmt.Scanln(&dst, &r)
 		remoteAddr, e := net.ResolveUDPAddr("udp", dst)
 		if e != nil {
 			panic(e)
 		}
-		n, e := ln.WriteToUDP([]byte(r), remoteAddr)
+		n, e = ln.WriteToUDP([]byte(r), remoteAddr)
 		if e != nil {
 			panic(e)
 		}
