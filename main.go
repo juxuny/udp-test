@@ -23,6 +23,9 @@ func main() {
 		return
 	}
 	ln, e := net.ListenUDP("udp", udpAddr)
+	if e != nil {
+		panic(e)
+	}
 	go func () {
 		for {
 			var buf = make([]byte, 1000)
